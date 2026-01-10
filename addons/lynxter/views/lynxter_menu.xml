@@ -1,0 +1,14 @@
+<odoo>
+    <!-- Menu de l'application lynxter -->
+    <menuitem id="menu_lynxter" name="Lynxter" />
+    <!-- Action pour ouvrir la liste des véhicules -->
+    <record id="action_lynxter_printer" model="ir.actions.act_window">
+        <field name="name">Lynxter Printers</field>
+        <field name="res_model">lynxter.printer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Liens de menu -->
+<menuitem id="menu_lynxter_printer" name="Printers" parent="menu_lynxter"  
+          action="action_lynxter_printer" sequence="0"  />
+</odoo>

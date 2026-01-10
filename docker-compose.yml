@@ -14,9 +14,8 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=myodoo
-    #command: odoo -d odoo18 -i rentcars --dev xml
+    command: odoo -d odoo18 -i lynxter --dev xml
   db:
-    user: root
     image: postgres:13
     environment:
       - POSTGRES_DB=postgres

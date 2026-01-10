@@ -27,8 +27,11 @@ Ce module permet de gérer les imprimantes 3D de la marque Lynxter.
     # always loaded
     'data': [
         'security/lynxter_security.xml',
+        'security/ir.model.access.csv',
         'views/views.xml',
+        'views/lynxter_menu.xml',
         'views/templates.xml',
+        'views/printer_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
