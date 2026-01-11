@@ -37,6 +37,7 @@ class Material(models.Model):
 
         return compatibility_map.get(self.type) in model
     
+    # Bouton pour vérifier la compatibilité des matériaux avec les imprimantes sélectionnées
     def button_check_compatibility(self):
         for material in self:
             if not material.printer_ids:
