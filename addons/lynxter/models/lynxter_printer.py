@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, api
 import re
 from odoo.exceptions import ValidationError
 from datetime import date
@@ -11,30 +11,32 @@ class Printer(models.Model):
     _description = 'Description of printer'
 
     active=fields.Boolean("Actif ?", default=True)
-
-    serial_number = fields.Char("Serial number", required=True)
+    serial_number = fields.Integer(string="Serial Number", required=True)
     manufacture_date = fields.Date(string="Manufacture date")
     sending_date = fields.Date(string="Sending date")
+    age = fields.Integer(string="Age", compute="_age_printer")
     location = fields.Char("Location")
-    model = fields.Char("Model")
+    model = fields.Selection([
+        ('S600D', 'S600D'),
+        ('S300X_FIL', 'S300X_FIL'),
+        ('S300X_LIQ', 'S300X_LIQ'),
+        ('S300X_PAS', 'S300X_PAS')
+    ], string="Printer Model", required=True)
     thumbnail = fields.Binary("Thumbnail")
-    
-    state = fields.Selection([
-        ('broken','Broken Down'),
-        ('repaired', 'Being repaired'),
-        ('usable', 'Usabled')
-    ])
-    
-    def _sending_date(self):
-        self.ensure_one()
-        if self.manufacture_date and self.sending_date:
-            manufacture_plus_2weeks = self.manufacture_date + relativedelta(weeks=2)
-            if self.sending_date < manufacture_plus_2weeks:
-                raise ValidationError("The sending date must be at least 2 weeks after the manufacture date")
-        return True
-    
-    def button_check_sending_date(self):
+
+    material_ids = fields.Many2many(
+        'lynxter.material',
+        string="Compatible materials"
+    )
+
+    toolhead_ids = fields.One2many(
+        'lynxter.toolhead',
+        'printer_id',
+        string="printer toolheads"
+    )
+
+    @api.depends('manufacture_date')
+    def _age_printer(self):
         for printer in self:
-            if not printer._sending_date():
-                raise ValidationError("The sending date is invalid")
-        return True
+            TODAY = date.today()
+            printer.age=relativedelta(TODAY,printer.manufacture_date).years

@@ -32,11 +32,14 @@ Ce module permet de gérer les imprimantes 3D de la marque Lynxter.
         'views/lynxter_menu.xml',
         'views/templates.xml',
         'views/printer_views.xml',
-        'views/printer_list_template.xml',
+        'views/material_views.xml',
+        'views/toolhead_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        'demo/printer.xml',
+        'demo/material.xml',
+        'demo/toolhead.xml',
     ],
 }
 

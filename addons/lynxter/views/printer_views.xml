@@ -4,24 +4,20 @@
         <field name="model">lynxter.printer</field>
         <field name="arch" type="xml">
             <form string="printer">
-                <header>
-                    <button name="button_check_sending_date" type="object"
-                        string="Check dates"></button>
-                </header>
                 <sheet>
                     <group name="group_line_1">
                         <group name="group_column_left">
-                            <field name="model"/>
                             <field name="active"/>
                             <field name="manufacture_date"/>
                             <field name="sending_date"/>
                             <field name="location"/>
-                            <field name="serial_number" invisible='state != "usable"'/>
-                            <field name="state" widget="statubar" statubar_visible="broken, repaired, usable"/>
+                            <field name="age"/>
+                            <field name="serial_number"/>
                         </group>
                     
                         <group name="group_column_right">
                             <field name="thumbnail" widget="image" options='{"size": [150, 140]}'/>
+                            <field name="model"/>
                         </group>
                     </group>
                     
@@ -33,13 +29,12 @@
         <field name="name">Printer list</field>
         <field name="model">lynxter.printer</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="model"/>
-                <field name="serial_number"/>
-                <field name="state"/>
-                <field name="manufacture_date"/>
-                <field name="thumbnail" widget="image" options='{"size": [150, 140]}'/>
-            </list>
+           <list>
+            <field name="serial_number"/>
+            <field name="manufacture_date"/>
+            <field name="location" groups="lynxter.lynxter_group_manager,base.group_system"/>
+            <field name="thumbnail" widget="image" options='{"size": [150, 140]}'/>
+        </list>
         </field>
 
     </record>
