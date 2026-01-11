@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+print(">>> lynxter_printer.py LOADED <<<")
 
 from odoo import fields, models, api
 import re
@@ -23,6 +24,13 @@ class Printer(models.Model):
         ('S300X_PAS', 'S300X_PAS')
     ], string="Printer Model", required=True)
     thumbnail = fields.Binary("Thumbnail")
+
+    building_status = fields.Selection([
+        ('ordered', 'ordered'),
+        ('work in progress', 'Work in progress'),
+        ('stock', 'Stock'),
+        ('sent', 'Sent')
+    ], string="Building status", required=True, default='ordered')
 
     material_ids = fields.Many2many(
         'lynxter.material',

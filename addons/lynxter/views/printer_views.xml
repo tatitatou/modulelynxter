@@ -13,6 +13,7 @@
                             <field name="location"/>
                             <field name="age"/>
                             <field name="serial_number"/>
+                            <field name="building_status"/>
                         </group>
                     
                         <group name="group_column_right">
